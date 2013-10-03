@@ -24,16 +24,13 @@ module RSpec
           before(:each) do
             model = send(variable_name)
 
-            if model.is_a?(ActiveRecord::Base)
-              if model.destroyed?
-                # Relig destroyed model
-                model.class.find(i.id)
-              elsif !model.new_record?
-                # Reload saved model
-                model.reload
-              end
-            else
-              warn "#{variable_name} is a #{model.class} - rspec-set works with ActiveRecord models only"
+            
+            if model.destroyed?
+              # Relig destroyed model
+              model.class.find(i.id)
+            elsif !model.new_record?
+              # Reload saved model
+              model.reload
             end
           end
 
